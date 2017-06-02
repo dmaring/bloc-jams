@@ -26,14 +26,56 @@ body {
     display: table;
 }
 
+.clearfix::after {
+    clear: both
+}
 .navbar {
-  padding: 0.5rem;
-  background-color: rgb(101,18,95);
+    position: relative;
+    padding: 0.5rem;
+    /* #1 */
+    background-color: rgba(101,18,95,0.5);
+    /* #2 */
+    z-index: 1;
 }
 
 .navbar .logo {
-  position: relative; /* positioning will be explained in a resource */
-  left: 2rem;
+    position: relative; /* positioning will be explained in a resource */
+    left: 2rem;
+    cursor: pointer; /* produces the finger-pointer icon when you hover over the logo */
+    
+}
+
+.navbar .links-container {
+    display: table;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100px;
+    color: white;
+    /* 3 */
+    text-decoration: none;
+}
+
+/* Why do we not include .navbar in this class selector? */
+.links-container .navbar-link {
+    display: table-cell;
+    position: relative;
+    height: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* 4 */
+    vertical-align: middle;
+    color: white;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* 3 */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.links-container .navbar-link:hover {
+    color: rgb(233,50,117);
 }
 
 /* Medium and small screens (640px) */
