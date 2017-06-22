@@ -28,6 +28,21 @@ var albumMarconi = {
     ]
 };
 
+var albumAbra = {
+    title: 'Abra Cadabra',
+    artist: 'The Magicians',
+    label: 'Magic',
+    year: '1948',
+    albumArtUrl: 'assets/images/album_covers/06.png',
+    songs: [
+        { title: 'White rabbit', duration: '1:01' },
+        { title: 'Pocket Aces', duration: '5:01' },
+        { title: 'Sawed in half', duration: '3:21'},
+        { title: 'Sword Swallowed', duration: '3:14'},
+        { title: 'My top hat', duration: '2:15'}
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
          '<tr class="album-view-song-item">'
@@ -48,6 +63,7 @@ var setCurrentAlbum = function(album) {
     var albumImage = document.getElementsByClassName('album-cover-art')[0];
     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
     
+    // Sets the album cover, artist, title, and releaseinfo
     // Set the nodeValue of the each element's first child to insert from the
     // album objects
     albumTitle.firstChild.nodeValue = album.title;
@@ -62,8 +78,24 @@ var setCurrentAlbum = function(album) {
     for (var i = 0; i < album.songs.length; i++) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
+        
 };
 
+
+
 window.onload = function() {
-    setCurrentAlbum(albumPicasso);
+    setCurrentAlbum(albumAbra);
+    
+    var albums = [albumPicasso, albumMarconi, albumAbra]
+    var albumCounter = 0
+    var coverArt = document.getElementsByClassName('album-cover-art')[0];
+    
+    coverArt.addEventListener('click', function(event) {
+        if (albumCounter > 2) {albumCounter = 0;}
+        setCurrentAlbum(albums[albumCounter]);
+        albumCounter ++;
+    })
+    
+    
+    
 };
