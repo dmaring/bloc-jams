@@ -56,7 +56,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 };
 
 var setCurrentAlbum = function(album) {
-    // Select all the HTML elements required to display on the album page
+    // Select and create variables for all the HTML elements required to display on the album page
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
@@ -65,7 +65,7 @@ var setCurrentAlbum = function(album) {
     
     // Sets the album cover, artist, title, and releaseinfo
     // Set the nodeValue of the each element's first child to insert from the
-    // album objects
+    // album objects --> argument of setCurrentAlbum
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -75,6 +75,7 @@ var setCurrentAlbum = function(album) {
     albumSongList.innerHTML = '';
     
     // This loop creates a song table for each of the album's songs
+    // It loops through each albums 'songs'
     for (var i = 0; i < album.songs.length; i++) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
