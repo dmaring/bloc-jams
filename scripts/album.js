@@ -92,7 +92,7 @@ window.onload = function() {
     var coverArt = document.getElementsByClassName('album-cover-art')[0];
     
     coverArt.addEventListener('click', function(event) {
-        if (albumCounter > 2) {albumCounter = 0;}
+        if (albumCounter == albums.length) {albumCounter = 0;}
         setCurrentAlbum(albums[albumCounter]);
         albumCounter ++;
     })
