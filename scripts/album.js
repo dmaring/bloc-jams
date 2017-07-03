@@ -67,13 +67,22 @@ var setCurrentAlbum = function(album) {
 };
 
 var findParentByClassName = function(element, targetClass) {
-    // check the dom tree for the parent of the element with the given class name
-    if (element) {
+    // check up the dom tree for the parent of the element with the given class name
+    
+    // check to see if the element has a parent
+    if (element.parentElement) {
         var currentParent = element.parentElement;
-        while (currentParent.className ==! targetClass && curentParent.className !== null) {
-            currentParent = currentParent.parentElement;
-        }
+        while (currentParent.className !== targetClass) {
+            // this runs if the targetClass isn't found
+            if (currentParent.parentElement === null); {
+                console.log("No parent found with that class name")
+            // sets the currentParent up one ancestry level
+            } else {
+                currentParent = currentParent.parentElement;
+            }
         return currentParent;
+    } else {
+        console.log("No parent found");
     }
     
 };
