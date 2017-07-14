@@ -9,7 +9,7 @@ var albumPicasso = {
         { title: 'Green', duration: '3:14'},
         { title: 'Red', duration: '5:01'},
         { title: 'Pink', duration: '3:21'},
-        { title: 'Magenta', duration: '2:15'},
+        { title: 'Magenta', duration: '2:15'}
     ]
 };
 
@@ -38,31 +38,32 @@ var createSongRow = function(songNumber, songName, songLength) {
         +'</tr>'
     ;
     
-    return template;
+    return $(template);
 };
 
 // Returns a template of the passed album argument
 var setCurrentAlbum = function(album) {
     // Select all the HTML elements required to display on the album page
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+    var $albumTitle = $('.album-view-title');
+    var $albumArtist = $('.album-view-artist');
+    var $albumReleaseInfo = $('.album-view-release-info');
+    var $albumImage = $('.album-cover-art');
+    var $albumSongList = $('.album-view-song-list');
     
     // Set the nodeValue of the each element's first child to insert from the
     // album objects
-    albumTitle.firstChild.nodeValue = album.title;
-    albumArtist.firstChild.nodeValue = album.artist;
-    albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
-    albumImage.setAttribute('src', album.albumArtUrl);
+    $albumTitle.text(album.title);
+    $albumArtist.text(album.artist);
+    $albumReleaseInfo.text(album.year + ' ' + album.label);
+    $albumImage.attr('src', album.albumArtUrl);
     
     // Clear the album-view-song-list element of any HTML for clean slate
-    albumSongList.innerHTML = '';
+    $albumSongList.empty();
     
     // This loop creates a song table for each of the album's songs
     for (var i = 0; i < album.songs.length; i++) {
-        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+        var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+        $albumSongList.append($newRow);
     }
 };
 
