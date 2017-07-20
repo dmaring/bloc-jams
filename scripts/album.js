@@ -88,14 +88,8 @@ var getSongNumberCell = function(number) {
     return songNumberCell;
 }
 
-var nextPreviousSong = function() {
-    // know the previous song to currently playing song
-    // use trackIndex function to find the index of the current song and increment
-    // the index + 1
-    // console.log(event.target);
-    var $next = $('.player-bar .ion-skip-forward');
-    console.log($next);
-    if (event.target === $next) {
+var nextPreviousSong = function(nextOrPrevious) {
+    if (nextOrPrevious === 'next') {
         var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
         currentSongIndex = currentSongIndex + 1;
 
@@ -272,6 +266,6 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function () {
     setCurrentAlbum(albumPicasso);
-    $previousButton.click(nextPreviousSong);
-    $nextButton.click(nextPreviousSong);
+    $previousButton.click(function() {nextPreviousSong('previous')});
+    $nextButton.click(function() {nextPreviousSong('next')});
 });
