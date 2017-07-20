@@ -88,6 +88,53 @@ var getSongNumberCell = function(number) {
     return songNumberCell;
 }
 
+var nextPreviousSong = function() {
+    // know the previous song to currently playing song
+    // use trackIndex function to find the index of the current song and increment
+    // the index + 1
+    // console.log(event.target);
+    var $next = $('.player-bar .ion-skip-forward');
+    console.log($next);
+    if (event.target === $next) {
+        var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+        currentSongIndex = currentSongIndex + 1;
+
+
+        if (currentSongIndex >= currentAlbum.songs.length) {
+            currentSongIndex = 0;
+        }
+    } else {
+        var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+        currentSongIndex = currentSongIndex - 1;
+
+
+        if (currentSongIndex < 0) {
+        currentSongIndex = currentAlbum.songs.length - 1;
+        }
+    };
+
+    // capture the currently playing song number to record as the previously
+    // played song
+    var lastSongNumber = currentlyPlayingSongNumber;
+
+    // set a new current song with song name as string and song number as number
+    // calculated from the index number
+    setSong(currentSongIndex + 1);
+
+    // update playerbar
+    updatePlayerBarSong();
+
+    // get the previous song cell and update .song-item-number to its song number
+    var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
+    $lastSongNumberCell.html(lastSongNumber);
+
+    // get the current song cell and update .song-item-number to pause template
+    var $currentSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+    $currentSongNumberCell.html(pauseButtonTemplate);
+
+};
+    
+
 var nextSong = function() {
     // know the previous song to currently playing song
 
@@ -225,6 +272,6 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function () {
     setCurrentAlbum(albumPicasso);
-    $previousButton.click(previousSong);
-    $nextButton.click(nextSong);
+    $previousButton.click(nextPreviousSong);
+    $nextButton.click(nextPreviousSong);
 });
