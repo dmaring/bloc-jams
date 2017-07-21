@@ -231,6 +231,28 @@ var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
 }
 
+var togglePlayFromPlayerBar = function() {
+    // if song is paused
+    if (currentSoundFile.isPaused()) {
+        // change song number cell from play button to pause button
+        var $songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+        $songNumberCell.html(pauseButtonTemplate);
+        // change html of player bar's play button to a pause button
+        $playPauseButton.html(playerBarPauseButton);
+        // play the song
+        currentSoundFile.play();
+        
+    } else {
+        // change song number cell from pause button to play button
+        var $songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+        $songNumberCell.html(pauseButtonTemplate);
+        // change html of player bar's pause button to a play button
+        $playPauseButton.html(playerBarPlayButton);
+        // pause the song
+        currentSoundFile.pause();
+    }
+};
+
 var updatePlayerBarSong = function () {
     //select h2 for artistName and write .text with artistname
     $('.player-bar .currently-playing .artist-name').text(currentSongFromAlbum.title);
@@ -264,9 +286,12 @@ var currentVolume = 80;
 // selectors for playerbar previous and next buttons
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playPauseButton = $('.main-controls .play-pause');
+
 
 $(document).ready(function () {
     setCurrentAlbum(albumPicasso);
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
+    $playPauseButton.click(togglePlayFromPlayerBar);
 });
