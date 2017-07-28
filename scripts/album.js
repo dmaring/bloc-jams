@@ -269,11 +269,8 @@ var filterTimeCode = function (timeInSeconds) {
     
     var rawMinutes = (timeInSeconds / 60);
     var wholeMinutes = Math.floor(rawMinutes);
+    
     var rawSeconds = (timeInSeconds % 60);
-    
-    
-    
-    // .toLocaleString({minimumIntegerDigits: 2})
     var wholeSeconds = formatSeconds(Math.floor(rawSeconds));
  
     
