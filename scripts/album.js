@@ -4,7 +4,7 @@ var createSongRow = function(songNumber, songName, songLength) {
          '<tr class="album-view-song-item">'
         +'  <td class="song-item-number" data-song-number="' + songNumber +'">' + songNumber + '</td>'
         +'  <td class="song-item-title">' + songName + '</td>'
-        +'  <td class="song-item-duration">' + songLength + '</td>'
+        +'  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
         +'</tr>'
     ;
     
@@ -248,9 +248,36 @@ var setCurrentAlbum = function(album) {
     }
 };
 
+var setCurrentTimeInPlayBar = function(currentTime) {
+    // set the .current-time element to the currentTime
+    $('.current-time').text(filterTimeCode(currentTime));
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+    $('.total-time').text(filterTimeCode(totalTime));
+}
+
 // returns the index number of album.songs[] for given song and album
 var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
+}
+
+var filterTimeCode = function (timeInSeconds) {
+    var formatSeconds = function(number){
+        return new Intl.NumberFormat("en", { minimumIntegerDigits: 2 }).format(number);
+    };
+    
+    var rawMinutes = (timeInSeconds / 60);
+    var wholeMinutes = Math.floor(rawMinutes);
+    var rawSeconds = (timeInSeconds % 60);
+    
+    
+    
+    // .toLocaleString({minimumIntegerDigits: 2})
+    var wholeSeconds = formatSeconds(Math.floor(rawSeconds));
+ 
+    
+    return (wholeMinutes + ':' + wholeSeconds);
 }
 
 var updatePlayerBarSong = function () {
@@ -274,7 +301,10 @@ var updateSeekBarWhileSongPlays = function() {
             var $seekBar = $('.seek-control .seek-bar');
             
             updateSeekPercentage($seekBar, seekBarFillRatio);
+            setCurrentTimeInPlayBar(this.getTime());
+            setTotalTimeInPlayerBar(this.getDuration());
         });
+        
     }
 };
 
